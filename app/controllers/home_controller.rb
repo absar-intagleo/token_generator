@@ -17,20 +17,26 @@ class HomeController < ApplicationController
   end
 
   def transfer_token
+    trans_note = ""
+
     token_amount =  if params[:category_name].downcase.eql?("project")
       if params[:category_child_id].eql?("1")
+        trans_note = "Awarded for creating project."
         3
       elsif params[:category_child_id].eql?("2")
+        "Awarded for volunteering the project."
         2
       end 
     elsif params[:category_name].downcase.eql?("discussion")
       if params[:category_child_id].eql?("1")
+        trans_note = "Tokens for Creating a Discussion "
         2
       elsif params[:category_child_id].eql?("2")
+        trans_note = "Awarded for voting in the poll."
         1
       end
     end
-    
+       
   	wallet_to = params[:wallet_id]
   	currency_id = "171"
   	access_token = User.last.access_token
@@ -43,7 +49,7 @@ class HomeController < ApplicationController
     wallet_request = Net::HTTP::Post.new(wallet_url)
     wallet_request["content-type"] = 'application/json'
     wallet_request["Authorization"] = "Bearer #{access_token}"
-    wallet_request.body = "{\"userID\":\"#{sender_uu_id}\",\"wallet_to\":\"#{wallet_to}\",\"wallet_amount\":#{token_amount},\"currency_id\":#{currency_id},\"trans_note\":\"test\"}"
+    wallet_request.body = "{\"userID\":\"#{sender_uu_id}\",\"wallet_to\":\"#{wallet_to}\",\"wallet_amount\":#{token_amount},\"currency_id\":#{currency_id},\"trans_note\":\"#{trans_note}\"}"
     wallet_response = http.request(wallet_request)
     wallet_response = JSON.parse(wallet_response.read_body)
     

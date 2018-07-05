@@ -1,0 +1,24 @@
+connection: &connection
+  adapter: postgresql
+  host: localhost
+  pool: 5
+  timeout: 5000
+  min_messages: warning
+  username: postgres
+  password: postgres
+
+development:
+  <<: *connection
+  # url: postgres://u90u7jmmevnodi:pfnem37nmgl6rq9h2fta4kvn85s@ec2-52-45-96-242.compute-1.amazonaws.com:5432/d5m71elpasne0c
+  # url: postgres://u673cd9nu5424n:p567aa2cfd7a48c709742e8b363e69ae48878d043fe2bb25f3b08a97e94c2001a@ec2-34-235-237-70.compute-1.amazonaws.com:5432/df335qnect1n7c # // staging database
+  database: token_generator_development
+test: &test
+  <<: *connection
+  database: token_generator_test
+
+production:
+  <<: *connection
+  database: token_generator_production
+
+cucumber:
+  <<: *test

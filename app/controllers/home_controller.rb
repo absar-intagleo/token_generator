@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+
+	before_action :validate_params, only: :transfer_token
 	require 'net/http'
   def authenticate
   	sso_url = URI("https://v1-sso-api.digitaltown.com/oauth/token")
@@ -37,5 +39,14 @@ class HomeController < ApplicationController
     wallet_response = JSON.parse(wallet_response.read_body)
     
     render(json: wallet_response, status: 200)
+  end
+
+  private
+  def validate_params
+  	error_message = []
+   	error_message << "Please provide wallet_id" if !params[:wallet_id].present?
+   	error_message << "Please provide category_name" if !params[:category_name].present?
+   	error_message << "Please provide category_name" if !params[:category_child_id].present?
+  	render(json: {error: error_message.join(', ')}, status: 400) if error_message.present?
   end
 end

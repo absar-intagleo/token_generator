@@ -29,7 +29,7 @@ class HomeController < ApplicationController
       end 
     elsif params[:category_name].downcase.eql?("discussion")
       if params[:category_child_id].eql?("1")
-        trans_note = "Tokens for Creating a Discussion "
+        trans_note = "Awarded for creating a discussion "
         2
       elsif params[:category_child_id].eql?("2")
         trans_note = "Awarded for voting in the poll."

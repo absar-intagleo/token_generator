@@ -17,11 +17,20 @@ class HomeController < ApplicationController
   end
 
   def transfer_token
-  	token_amount =  if params[:category_name] == "project"
-  		3
-  	else
-  		2
-  	end
+    token_amount =  if params[:category_name].downcase.eql?("project")
+      if params[:category_child_id].eql?("1")
+        3
+      elsif params[:category_child_id].eql?("2")
+        2
+      end 
+    elsif params[:category_name].downcase.eql?("discussion")
+      if params[:category_child_id].eql?("1")
+        2
+      elsif params[:category_child_id].eql?("2")
+        1
+      end
+    end
+    
   	wallet_to = params[:wallet_id]
   	currency_id = "171"
   	access_token = User.last.access_token

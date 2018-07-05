@@ -31,8 +31,7 @@ class HomeController < ApplicationController
     wallet_request = Net::HTTP::Post.new(wallet_url)
     wallet_request["content-type"] = 'application/json'
     wallet_request["Authorization"] = "Bearer #{access_token}"
-    wallet_request.body = "{\"userID\":\"#{sender_uu_id}\",\"wallet_to\":#{wallet_to},\"wallet_amount\":#{token_amount},\"currency_id\":#{currency_id},\"trans_note\":\"test\"}"
-    # wallet_request.body = "{\"userID\":\"#{sender_uu_id}\",\"wallet_to\":\"#{wallet_to}\",\"wallet_amount\":\"#{token_amount}\",\"currency_id\":\"#{currency_id}\",\"trans_note\":\"test\"}"
+    wallet_request.body = "{\"userID\":\"#{sender_uu_id}\",\"wallet_to\":\"#{wallet_to}\",\"wallet_amount\":#{token_amount},\"currency_id\":#{currency_id},\"trans_note\":\"test\"}"
     wallet_response = http.request(wallet_request)
     wallet_response = JSON.parse(wallet_response.read_body)
     

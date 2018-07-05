@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+	require 'net/http'
   def authenticate
   	sso_url = URI("https://v1-sso-api.digitaltown.com/oauth/token")
   	http = Net::HTTP.new(sso_url.host, sso_url.port)

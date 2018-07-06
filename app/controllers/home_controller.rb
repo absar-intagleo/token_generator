@@ -24,7 +24,7 @@ class HomeController < ApplicationController
         trans_note = "Awarded for creating project."
         3
       elsif params[:category_child_id].eql?("2")
-        trans_note = "Awarded for volunteering the project."
+        trans_note = "Awarded for volunteering project."
         2
       elsif params[:category_child_id].eql?("3")
         trans_note = "Awarded for commenting on project."
@@ -32,10 +32,10 @@ class HomeController < ApplicationController
       end 
     elsif params[:category_name].downcase.eql?("discussion")
       if params[:category_child_id].eql?("1")
-        trans_note = "Awarded for creating a discussion "
+        trans_note = "Awarded for creating a discussion."
         2
       elsif params[:category_child_id].eql?("2")
-        trans_note = "Awarded for voting in the poll."
+        trans_note = "Awarded for voting in poll."
         1
       elsif params[:category_child_id].eql?("3")
         trans_note = "Awarded for commenting on discussion."

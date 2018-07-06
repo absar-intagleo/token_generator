@@ -26,6 +26,9 @@ class HomeController < ApplicationController
       elsif params[:category_child_id].eql?("2")
         trans_note = "Awarded for volunteering the project."
         2
+      elsif params[:category_child_id].eql?("3")
+        trans_note = "Awarded for commenting on project."
+        1
       end 
     elsif params[:category_name].downcase.eql?("discussion")
       if params[:category_child_id].eql?("1")
@@ -33,6 +36,14 @@ class HomeController < ApplicationController
         2
       elsif params[:category_child_id].eql?("2")
         trans_note = "Awarded for voting in the poll."
+        1
+      elsif params[:category_child_id].eql?("3")
+        trans_note = "Awarded for commenting on discussion."
+        1
+      end
+    elsif params[:category_name].downcase.eql?("event")
+      if params[:category_child_id].eql?("3")
+        trans_note = "Awarded for commenting on event."
         1
       end
     end

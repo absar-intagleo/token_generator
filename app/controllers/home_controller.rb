@@ -12,8 +12,12 @@ class HomeController < ApplicationController
     wallet_request.body = json_params
     wallet_response = http.request(wallet_request)
     wallet_response = JSON.parse(wallet_response.read_body)
- 		User.create(access_token:  wallet_response["access_token"], refresh_token: wallet_response["access_token"])
- 		render(json: wallet_response, status: 200)
+    if params[:action].eql?("transfer_token")
+      User.last.update_attributes(access_token:  wallet_response["access_token"], refresh_token: wallet_response["access_token"])
+   	else
+    	User.create(access_token:  wallet_response["access_token"], refresh_token: wallet_response["access_token"])
+ 		  render(json: wallet_response, status: 200)
+    end
   end
 
   def transfer_token
@@ -50,6 +54,10 @@ class HomeController < ApplicationController
        
   	wallet_to = params[:wallet_id]
   	currency_id = "171"
+    user = User.last
+    if user.updated_at <= 27.days.ago
+      authenticate
+    end
   	access_token = User.last.access_token
     sender_wallet_id = Rails.application.secrets.sender_wallet_id
     sender_user_id = Rails.application.secrets.sender_user_id
